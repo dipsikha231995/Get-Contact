@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Get Contact</string>
+    <string name="background">background</string>
+    <string name="set_4_digit_pin">Set 4 digit pin!</string>
+    <string name="set_pin">SET PIN</string>
+    <string name="confirm_your_pin">Confirm Your Pin</string>
+    <string name="enter_your_pin">Enter Your Pin</string>
+    <string name="todo">TODO</string>
+    <string name="set_a_four_character_pin">Set a four character PIN</string>
+
+    <string name="info">
+       <b><i> Get Contact app deals with getting a mobile number of a person
+        by just specifying the name.This is a useful application when we forget our
+        mobile and are desperately in need of a contact.</i></b>\n
+        \n Sounds interesting?? Just follow these steps to get started with this app...\n
+        \n 1. Set your <b>4-digit pin</b>. \n
+        \n 2. In need of contact just send an SMS from any mobile phone available near you. \n
+        \n 3. The above SMS must contain the name of the person whose contact you want along with the <b>4-digit pin</b> at the end.\n
+        \n 4. If the contact is available in your contact list then it will be sent, else no reply is sent. \n
+        \n 5. You can also change your pin by clicking on the lock icon in the action bar. \n \n
+
+        -----------------------------\n
+    </string>
+    <string name="infopic">background</string>
+</resources>

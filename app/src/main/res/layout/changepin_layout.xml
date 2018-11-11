@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="15dp"
+    android:background="@drawable/dialog_background">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="35dp"
+        android:gravity="center"
+        android:text="CHANGE PIN"
+        android:textAlignment="center"
+        android:textColor="#9933c5"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="307dp"
+        android:layout_height="435dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <EditText
+            android:id="@+id/old_pin"
+            android:layout_width="290dp"
+            android:layout_height="51dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="130dp"
+            android:drawableStart="@drawable/oldpin"
+            android:ems="10"
+            android:hint="Old Pin"
+            android:inputType="number"
+            android:textColor="@color/colorAccent" />
+
+        <EditText
+            android:id="@+id/new_pin"
+            android:layout_width="290dp"
+            android:layout_height="51dp"
+            android:layout_marginBottom="5dp"
+            android:drawableStart="@drawable/newpin"
+            android:ems="10"
+            android:hint="New Pin"
+            android:inputType="number"
+            android:textColor="@color/colorAccent" />
+
+        <EditText
+            android:id="@+id/con_pin"
+            android:layout_width="290dp"
+            android:layout_height="51dp"
+            android:layout_marginBottom="176dp"
+            android:layout_marginEnd="10dp"
+            android:drawableStart="@drawable/conpin"
+            android:ems="10"
+            android:hint="Confirm Pin"
+            android:inputType="number"
+            android:textColor="@color/colorAccent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="274dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="72dp"
+        android:layout_marginStart="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.391"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/cancel_btn"
+            android:layout_width="117dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cancel_btn_bg"
+            android:text="Cancel"
+            android:textColor="#f4eeee" />
+
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="117dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:background="@drawable/reset_btn_bg"
+            android:text="Reset Pin"
+            android:textColor="#f4eeee" />
+
+
+    </LinearLayout>
+
+
+
+
+</android.support.constraint.ConstraintLayout>

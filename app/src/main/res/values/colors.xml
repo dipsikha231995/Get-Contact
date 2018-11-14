@@ -3,4 +3,6 @@
     <color name="colorPrimary">#800080</color>
     <color name="colorPrimaryDark">#4B0082</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="snackTextSuccess">#00e600</color>
+    <color name="snackTextFail">#cf0a10</color>
 </resources>

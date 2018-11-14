@@ -181,14 +181,12 @@ public class SMSReceiver extends BroadcastReceiver {
                                 }
 
                                 sendSMS(destinationAddress, myString.toString());
-                            }
-                            else {
+                            } else {
                                 String msg = "Oops! Contact not available!";
                                 sendSMS(destinationAddress, msg);
                                 Log.e(TAG, "No Contact Found");
                             }
-                        }
-                        else {
+                        } else {
 
                             Toast.makeText(context, "Contact access permisson is OFF", Toast.LENGTH_SHORT).show();
                         }

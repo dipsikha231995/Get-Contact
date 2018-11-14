@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.provider.Settings;
@@ -19,6 +20,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +29,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -47,9 +50,7 @@ public class MainActivity extends AppCompatActivity {
     AlertDialog.Builder change_pin;
     AlertDialog dialog;
     String userSetPin;
-    ListView list;
     List<Object> log_list = new ArrayList<Object>();
-    //ArrayAdapter adapter;
     Object[] log_data = null;
     static Set<String> logs = null;
     static SharedPreferences savedPrefs;
@@ -62,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //list = findViewById(R.id.list);
         rv = findViewById(R.id.rv_list);
 
         //reading shared preference file
@@ -104,6 +104,9 @@ public class MainActivity extends AppCompatActivity {
         if (getIntent().getBooleanExtra(SetPinActivity.EXTRA_PIN_SET, false)) {
 
             Snackbar snackbar = Snackbar.make(findViewById(R.id.layout), "PIN SET SUCCESSFULLY", Snackbar.LENGTH_LONG);
+            View snackView = snackbar.getView();
+            TextView textView = snackView.findViewById(android.support.design.R.id.snackbar_text);
+            textView.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.snackTextSuccess));
             snackbar.show();
         }
 
@@ -142,15 +145,15 @@ public class MainActivity extends AppCompatActivity {
                                     SharedPreferences.Editor editor = SetPinActivity.pinPreference.edit();
                                     editor.putString(SetPinActivity.PIN_KEY, np.getText().toString());
                                     editor.apply();
-                                    Toast.makeText(MainActivity.this, "PIN Changed!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.this, "PIN CHANGED!", Toast.LENGTH_SHORT).show();
 
                                 } else {
 
-                                    Toast.makeText(MainActivity.this, "PIN didn't matched!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.this, "PIN NOT MATCHED!", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
 
-                                Toast.makeText(MainActivity.this, "Provide a Valid OLD PIN", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "PROVIDE A VALID OLD PIN!", Toast.LENGTH_SHORT).show();
                             }
 
                         } else {
@@ -193,7 +196,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.remove:
 
                 SharedPreferences.Editor editor = savedPrefs.edit();
-                //editor.clear();
 
                 // clear the pin
                 editor.remove(SetPinActivity.PIN_KEY);
@@ -204,7 +206,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent1);
 
                 finish();
-                //Toast.makeText(this, "PIN REMOVED!!", Toast.LENGTH_LONG).show();
                 break;
 
         }

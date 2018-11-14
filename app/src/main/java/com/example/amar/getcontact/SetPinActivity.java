@@ -3,11 +3,13 @@ package com.example.amar.getcontact;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.regex.Matcher;
@@ -41,6 +43,9 @@ public class SetPinActivity extends AppCompatActivity {
         if (getIntent().getBooleanExtra(MainActivity.EXTRA_REMOVE_PIN, false)) {
 
             Snackbar snackbar = Snackbar.make(findViewById(R.id.setpinLayout), "PIN REMOVED!!", Snackbar.LENGTH_LONG);
+            View snackView = snackbar.getView();
+            TextView textView = snackView.findViewById(android.support.design.R.id.snackbar_text);
+            textView.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.snackTextFail));
             snackbar.show();
         }
 

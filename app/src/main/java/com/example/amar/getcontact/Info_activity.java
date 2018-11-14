@@ -21,7 +21,7 @@ public class Info_activity extends AppCompatActivity {
 
         setContentView(R.layout.activity_info_layout);
 
-        setTitle("App Info");
+        setTitle("About GET CONTACT");
 
         coordinatorLayout = findViewById(R.id.coordinator_layout);
 

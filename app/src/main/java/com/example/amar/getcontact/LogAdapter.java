@@ -51,9 +51,9 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder> {
         logViewHolder.tview.setText(new_data);
         logViewHolder.log_icon.setImageResource(R.drawable.chat);
 
-        logViewHolder.layout.setOnClickListener(new View.OnClickListener() {
+        logViewHolder.layout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onLongClick(View v) {
 
                 Snackbar snackbar = Snackbar.make(logViewHolder.layout, data, Snackbar.LENGTH_INDEFINITE)
                         .setAction("Delete", new View.OnClickListener() {
@@ -72,7 +72,9 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder> {
                                 MainActivity.saveLogs();
                             }
                         });
+
                 snackbar.show();
+                return true;
             }
         });
 
@@ -90,13 +92,11 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder> {
         ImageView log_icon;
         TextView tview;
         View layout;
-        CardView cardView;
 
         public LogViewHolder(@NonNull final View itemView) {
             super(itemView);
             log_icon = itemView.findViewById(R.id.myimage);
             tview = itemView.findViewById(R.id.mytext);
-            cardView = itemView.findViewById(R.id.cardView);
             layout = itemView;
         }
     }

@@ -25,11 +25,11 @@ public class Info_activity extends AppCompatActivity {
 
         coordinatorLayout = findViewById(R.id.coordinator_layout);
 
-        snackbar = Snackbar.make(coordinatorLayout,"Designed by Amarjyoti Gautam & Dipsikha Phukan",Snackbar.LENGTH_INDEFINITE);
+        snackbar = Snackbar.make(coordinatorLayout, "Designed by Amarjyoti Gautam & Dipsikha Phukan", Snackbar.LENGTH_INDEFINITE);
         View snackView = snackbar.getView();
         TextView textView = snackView.findViewById(android.support.design.R.id.snackbar_text);
         textView.setTextColor(Color.CYAN);
-        textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.innovation1,0,0,0);
+        textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.innovation1, 0, 0, 0);
         textView.setGravity(Gravity.CENTER);
         snackbar.show();
     }

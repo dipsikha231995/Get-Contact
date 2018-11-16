@@ -17,9 +17,11 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -61,6 +63,11 @@ public class SMSReceiver extends BroadcastReceiver {
                 Context.MODE_PRIVATE);
 
         String savedPin = prefs.getString(SetPinActivity.PIN_KEY, null);
+
+        String pattern = "dd-MM-yyyy HH:mm:ss";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+
 
         if (intent.getAction().equalsIgnoreCase("android.provider.Telephony.SMS_RECEIVED")) {
 
@@ -145,7 +152,8 @@ public class SMSReceiver extends BroadcastReceiver {
 
                                 // info : contact no, query, timestamp
 
-                                String data = name + " : " + destinationAddress + "@" + Calendar.getInstance().getTime();
+                                // yyyy-mm-dd:HH:mm:ss
+                                String data = name + " : " + destinationAddress + "@" + simpleDateFormat.format(new Date());
 
                                 logs.add(data);
 

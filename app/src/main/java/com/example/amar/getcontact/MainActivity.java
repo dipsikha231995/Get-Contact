@@ -1,34 +1,28 @@
 package com.example.amar.getcontact;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
-import java.util.Arrays;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     AlertDialog.Builder change_pin;
     AlertDialog dialog;
     String userSetPin;
-    List<Object> log_list = new ArrayList<Object>();
+    List<Object> log_list = new ArrayList<>();
     Object[] log_data = null;
     static Set<String> logs = null;
     static SharedPreferences savedPrefs;
@@ -109,8 +103,6 @@ public class MainActivity extends AppCompatActivity {
             textView.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.snackTextSuccess));
             snackbar.show();
         }
-
-
     }
 
     @Override
@@ -272,10 +264,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        logAdapter = new LogAdapter(log_list, getApplicationContext());
+        logAdapter = new LogAdapter(log_list, getApplicationContext(), (CoordinatorLayout)findViewById(R.id.coordinator_layout));
         rv.setAdapter(logAdapter);
         rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
     }
 
 

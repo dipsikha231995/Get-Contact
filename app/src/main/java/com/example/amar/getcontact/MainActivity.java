@@ -27,6 +27,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -44,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
     AlertDialog.Builder change_pin;
     AlertDialog dialog;
     String userSetPin;
-    List<Object> log_list = new ArrayList<>();
     Object[] log_data = null;
     static Set<String> logs = null;
     static SharedPreferences savedPrefs;
@@ -69,13 +70,38 @@ public class MainActivity extends AppCompatActivity {
 
         if (logs != null) {
 
-            Log.d("logs", "stored data: " + logs.toString());
+            Log.d("MY_APP", "stored data: " + logs.toString());
 
             //converting the shared pref set into string array
             log_data = logs.toArray();
 
-            //populating lisview adapter
-            populateAdapter(log_data);
+
+            // List of Log objects
+            List<MyLog> myLogs = new ArrayList<>();
+
+            for (Object var : log_data) {
+
+                String[] t = ((String)var).split("@");
+
+                myLogs.add(new MyLog(t[0], t[1]));
+            }
+
+
+            // sort the list
+            Collections.sort(myLogs, new Comparator<MyLog>() {
+                @Override
+                public int compare(MyLog o1, MyLog o2) {
+                    return o1.date.compareTo(o2.date);
+                }
+            });
+
+            //Log.d("my_data", myLogs.toString());
+
+
+            logAdapter = new LogAdapter(myLogs, getApplicationContext(), (CoordinatorLayout)findViewById(R.id.coordinator_layout));
+            rv.setAdapter(logAdapter);
+            rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
 
         }
 
@@ -256,23 +282,9 @@ public class MainActivity extends AppCompatActivity {
         return Pattern.compile(PIN_PATTERN).matcher(pin).matches();
     }
 
-
-    private void populateAdapter(Object[] logArray) {
-
-        for (int i = 0; i < logs.size(); i++) {
-            log_list.add(logArray[i]);
-        }
-
-
-        logAdapter = new LogAdapter(log_list, getApplicationContext(), (CoordinatorLayout)findViewById(R.id.coordinator_layout));
-        rv.setAdapter(logAdapter);
-        rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-    }
-
-
     public static void saveLogs() {
 
-        Log.d("logs", logs.toString());
+        Log.d("MY_APP", logs.toString());
 
         // save the new set in pref
         SharedPreferences.Editor editor = savedPrefs.edit();

@@ -56,6 +56,10 @@ public class SMSReceiver extends BroadcastReceiver {
     };
 
 
+    String pattern = "dd/MM/yyyy hh:mm:ss a";
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -63,9 +67,6 @@ public class SMSReceiver extends BroadcastReceiver {
                 Context.MODE_PRIVATE);
 
         String savedPin = prefs.getString(SetPinActivity.PIN_KEY, null);
-
-        String pattern = "dd-MM-yyyy HH:mm:ss";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
 
 
@@ -152,8 +153,11 @@ public class SMSReceiver extends BroadcastReceiver {
 
                                 // info : contact no, query, timestamp
 
-                                // yyyy-mm-dd:HH:mm:ss
-                                String data = name + " : " + destinationAddress + "@" + simpleDateFormat.format(new Date());
+                                // log format
+                                // maa@123456789@16/11/2018 01:40:33 PM
+
+
+                                String data = name + ":" + destinationAddress + "@" + simpleDateFormat.format(new Date());
 
                                 logs.add(data);
 
@@ -208,7 +212,7 @@ public class SMSReceiver extends BroadcastReceiver {
 
     private void saveLogs(SharedPreferences prefs, Set<String> logs) {
 
-        Log.d("logs", logs.toString());
+        Log.d("MY_APP", logs.toString());
 
         SharedPreferences.Editor editor = prefs.edit();
 

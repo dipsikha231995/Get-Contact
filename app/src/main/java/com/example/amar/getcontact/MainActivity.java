@@ -25,10 +25,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -46,12 +49,13 @@ public class MainActivity extends AppCompatActivity {
     AlertDialog.Builder change_pin;
     AlertDialog dialog;
     String userSetPin;
-    List<Object> log_list = new ArrayList<>();
     Object[] log_data = null;
     static Set<String> logs = null;
     static SharedPreferences savedPrefs;
     LogAdapter logAdapter;
     RecyclerView rv;
+    public static TextView textempty;
+    public static ImageView image_empty;
 
 
     @Override
@@ -60,28 +64,68 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         rv = findViewById(R.id.rv_list);
+        textempty = findViewById(R.id.textEmpty);
+        image_empty = findViewById(R.id.img_empty);
 
         //reading shared preference file
         savedPrefs = getSharedPreferences(SetPinActivity.pinSharedPrefFile, MODE_PRIVATE);
         logs = savedPrefs.getStringSet(KEY_LOG, null);
 
+        Log.d("MY_APP", "logs null ? " + (logs == null));
 
-        //Log.d("list", logs.toString());
+
+        if(logs == null || logs.isEmpty())
+        {
+            textempty.setText("No log available!");
+            image_empty.setImageResource(R.drawable.contact);
+
+        }
+
+        else if (logs != null) {
+
+            image_empty.setImageResource(0);
 
 
-        if (logs != null) {
-
-            Log.d("logs", "stored data: " + logs.toString());
+            Log.d("MY_APP", "stored data: " + logs.toString());
 
             //converting the shared pref set into string array
             log_data = logs.toArray();
 
-            //populating lisview adapter
-            populateAdapter(log_data);
 
+            // List of Log objects
+            List<MyLog> myLogs = new ArrayList<>();
+
+            for (Object var : log_data) {
+
+                String[] t = ((String)var).split("@");
+
+                myLogs.add(new MyLog(t[0], t[1]));
+            }
+
+
+            // sort the list
+            Collections.sort(myLogs, new Comparator<MyLog>() {
+                @Override
+                public int compare(MyLog o1, MyLog o2) {
+                    return o1.date.compareTo(o2.date);
+                }
+            });
+
+            //Log.d("my_data", myLogs.toString());
+
+
+            logAdapter = new LogAdapter(myLogs, getApplicationContext(), (CoordinatorLayout)findViewById(R.id.coordinator_layout));
+            rv.setAdapter(logAdapter);
+            rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         }
 
+
+
+
+
+        //
         userSetPin = savedPrefs.getString(SetPinActivity.PIN_KEY, "");
+
 
         //checking whether pin is set or not
         if (userSetPin.isEmpty()) {
@@ -107,6 +151,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.action1, menu);
@@ -118,6 +165,9 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.pin:
+
+                userSetPin = savedPrefs.getString(SetPinActivity.PIN_KEY, "");
+                Log.d("MY_APP", "old pin: " + userSetPin);
 
                 change_pin = new AlertDialog.Builder(MainActivity.this);
                 View v = getLayoutInflater().inflate(R.layout.changepin_layout, null);
@@ -133,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
                         if (isValidPin(np.getText().toString())) {
 
                             if (op.getText().toString().equals(userSetPin)) {
+
 
                                 if (np.getText().toString().equals(cp.getText().toString())) {
 
@@ -229,6 +280,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
     private void askPermissoin() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
@@ -279,23 +335,9 @@ public class MainActivity extends AppCompatActivity {
         return Pattern.compile(PIN_PATTERN).matcher(pin).matches();
     }
 
-
-    private void populateAdapter(Object[] logArray) {
-
-        for (int i = 0; i < logs.size(); i++) {
-            log_list.add(logArray[i]);
-        }
-
-
-        logAdapter = new LogAdapter(log_list, getApplicationContext(), (CoordinatorLayout)findViewById(R.id.coordinator_layout));
-        rv.setAdapter(logAdapter);
-        rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-    }
-
-
     public static void saveLogs() {
 
-        Log.d("logs", logs.toString());
+        Log.d("MY_APP", logs.toString());
 
         // save the new set in pref
         SharedPreferences.Editor editor = savedPrefs.edit();

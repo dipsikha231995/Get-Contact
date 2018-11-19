@@ -21,37 +21,16 @@ import java.util.List;
 
 public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder> {
 
-    List<Object> log_list;
+    List<MyLog> log_list;
     Context context;
 
     CoordinatorLayout coordinatorLayout;
 
-    public LogAdapter(List<Object> log_list, Context context, CoordinatorLayout cordinatorLayout) {
+    public LogAdapter(List<MyLog> log_list, Context context, CoordinatorLayout cordinatorLayout) {
 
         this.log_list = log_list;
         this.context = context;
         this.coordinatorLayout = cordinatorLayout;
-
-        sortData();
-    }
-
-
-    private void sortData() {
-        Log.d("Unsorted_data", this.log_list.toString());
-
-        int arrSize = log_list.size();
-
-        String[] dates = new String[arrSize];
-
-        for (int i = 0; i <arrSize; i++) {
-            String t = (String) log_list.get(i);
-
-            dates[i] = t.split("@")[1];
-        }
-
-
-        Log.d("time_array", Arrays.toString(dates));
-
     }
 
 
@@ -68,45 +47,9 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull final LogViewHolder logViewHolder, final int pos) {
-
-        final String data = (String) log_list.get(pos);
-
-        String new_data;
-
-        new_data = data.replace("@", "\n");
-
-        //Log.d("my_app", new_data);
-
-        logViewHolder.tview.setText(new_data);
+        String data = log_list.get(pos).toString();
+        logViewHolder.tview.setText(data);
         logViewHolder.log_icon.setImageResource(R.drawable.chat);
-
-        logViewHolder.layout.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-
-                Snackbar snackbar = Snackbar.make(coordinatorLayout, data, Snackbar.LENGTH_INDEFINITE)
-                        .setAction("Yes", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                                // removing data from set
-                                MainActivity.logs.remove(data);
-
-                                // removing data from list
-                                log_list.remove(data);
-
-                                notifyItemRemoved(pos);
-
-                                //writing to shared preference file
-                                MainActivity.saveLogs();
-                            }
-                        });
-
-                snackbar.show();
-                return true;
-            }
-        });
-
     }
 
 
@@ -117,7 +60,6 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder> {
 
 
     public class LogViewHolder extends RecyclerView.ViewHolder {
-
         ImageView log_icon;
         TextView tview;
         View layout;
@@ -127,6 +69,46 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder> {
             log_icon = itemView.findViewById(R.id.myimage);
             tview = itemView.findViewById(R.id.mytext);
             layout = itemView;
+
+            layout.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+
+                    // Get the position of the item that was clicked.
+                    final int mPosition = getLayoutPosition();
+
+                    final String data = log_list.get(mPosition).toString();
+
+
+                    Snackbar snackbar = Snackbar.make(coordinatorLayout, data, Snackbar.LENGTH_INDEFINITE)
+                            .setAction("Yes", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                    // removing data from set
+                                    MainActivity.logs.remove(data.replace("\n", "@"));
+
+                                    if(MainActivity.logs.isEmpty())
+                                    {
+                                        MainActivity.textempty.setText("No log available!");
+                                        MainActivity.image_empty.setImageResource(R.drawable.contact);
+                                    }
+
+                                    // removing data from list
+                                    log_list.remove(mPosition);
+
+                                    notifyDataSetChanged();
+
+                                    //writing to shared preference file
+                                    MainActivity.saveLogs();
+                                }
+                            });
+
+                    snackbar.show();
+
+                    return true;
+                }
+            });
         }
     }
 }

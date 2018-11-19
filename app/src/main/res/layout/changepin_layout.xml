@@ -12,7 +12,7 @@
         android:id="@+id/cardView"
         android:layout_width="320dp"
         android:layout_height="120dp"
-        app:cardCornerRadius="25dp"
+        app:cardCornerRadius="45dp"
         android:layout_marginBottom="290dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,7 +60,7 @@
                 android:layout_width="307dp"
                 android:layout_height="290dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="150dp"
+                android:layout_marginTop="160dp"
                 android:orientation="vertical"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -75,10 +75,10 @@
                     android:layout_width="290dp"
                     android:layout_height="51dp"
                     android:layout_marginBottom="5dp"
-                    android:drawableStart="@drawable/oldpin"
+                    android:drawableStart="@drawable/old_pin2"
                     android:ems="10"
                     android:hint="Old Pin"
-                    android:textColorHint="#ffff"
+                    android:textColorHint="#A9A9A9"
                     android:inputType="number"
                     android:textColor="@color/colorAccent" />
 
@@ -90,7 +90,7 @@
                     android:drawableStart="@drawable/lock_new"
                     android:ems="10"
                     android:hint="New Pin"
-                    android:textColorHint="#ffff"
+                    android:textColorHint="#A9A9A9"
                     android:inputType="number"
                     android:textColor="@color/colorAccent" />
 
@@ -102,7 +102,7 @@
                     android:drawableStart="@drawable/confirm_new"
                     android:ems="10"
                     android:hint="Confirm Pin"
-                    android:textColorHint="#ffff"
+                    android:textColorHint="#A9A9A9"
                     android:inputType="number"
                     android:textColor="@color/colorAccent" />
 

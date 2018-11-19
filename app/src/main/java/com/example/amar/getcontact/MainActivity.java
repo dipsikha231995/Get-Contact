@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.provider.Settings;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -97,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (getIntent().getBooleanExtra(SetPinActivity.EXTRA_PIN_SET, false)) {
 
-            Snackbar snackbar = Snackbar.make(findViewById(R.id.layout), "PIN SET SUCCESSFULLY", Snackbar.LENGTH_LONG);
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.layout), "PIN SET SUCCESSFULLY!", Snackbar.LENGTH_LONG);
             View snackView = snackbar.getView();
             TextView textView = snackView.findViewById(android.support.design.R.id.snackbar_text);
             textView.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.snackTextSuccess));
@@ -137,19 +139,39 @@ public class MainActivity extends AppCompatActivity {
                                     SharedPreferences.Editor editor = SetPinActivity.pinPreference.edit();
                                     editor.putString(SetPinActivity.PIN_KEY, np.getText().toString());
                                     editor.apply();
-                                    Toast.makeText(MainActivity.this, "PIN CHANGED!", Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(MainActivity.this, "PIN CHANGED!", Toast.LENGTH_SHORT).show();
+                                    Toast toast = Toast.makeText(MainActivity.this,"PIN CHANGED!",Toast.LENGTH_LONG);
+                                    View view = toast.getView();
+                                    TextView text = view.findViewById(android.R.id.message);
+                                    text.setTextColor(Color.GREEN);
+                                    toast.show();
 
                                 } else {
 
-                                    Toast.makeText(MainActivity.this, "PIN NOT MATCHED!", Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(MainActivity.this, "PIN DID NOT MATCHED!", Toast.LENGTH_SHORT).show();
+                                    Toast toast = Toast.makeText(MainActivity.this,"PIN DID NOT MATCHED!",Toast.LENGTH_LONG);
+                                    View view = toast.getView();
+                                    TextView text = view.findViewById(android.R.id.message);
+                                    text.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
+                                    toast.show();
                                 }
                             } else {
 
-                                Toast.makeText(MainActivity.this, "PROVIDE A VALID OLD PIN!", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(MainActivity.this, "PROVIDE A VALID OLD PIN!", Toast.LENGTH_SHORT).show();
+                                Toast toast = Toast.makeText(MainActivity.this,"PROVIDE A VALID OLD PIN!",Toast.LENGTH_LONG);
+                                View view = toast.getView();
+                                TextView text = view.findViewById(android.R.id.message);
+                                text.setTextColor(Color.YELLOW);
+                                toast.show();
                             }
 
                         } else {
-                            Toast.makeText(MainActivity.this, "PIN MUST CONTAIN FOUR DIGITS ONLY", Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(MainActivity.this, "PIN MUST CONTAIN FOUR DIGITS ONLY!", Toast.LENGTH_SHORT).show();
+                            Toast toast = Toast.makeText(MainActivity.this,"PIN MUST CONTAIN FOUR DIGITS ONLY!",Toast.LENGTH_LONG);
+                            View view = toast.getView();
+                            TextView text = view.findViewById(android.R.id.message);
+                            text.setTextColor(Color.YELLOW);
+                            toast.show();
                         }
 
 
@@ -193,7 +215,8 @@ public class MainActivity extends AppCompatActivity {
                 editor.remove(SetPinActivity.PIN_KEY);
                 editor.apply();
 
-                Intent intent1 = new Intent(this, SetPinActivity.class);
+                Intent intent1;
+                intent1 = new Intent(this, SetPinActivity.class);
                 intent1.putExtra(EXTRA_REMOVE_PIN, true);
                 startActivity(intent1);
 

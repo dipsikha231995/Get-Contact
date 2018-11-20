@@ -69,13 +69,19 @@ public class SetPinActivity extends AppCompatActivity {
                 finish();
             } else {
 
-                Snackbar snackbar2 = Snackbar.make(findViewById(R.id.setpinLayout), "PIN NOT MATCHED", Snackbar.LENGTH_LONG);
+                Snackbar snackbar2 = Snackbar.make(findViewById(R.id.setpinLayout), "PIN DID NOT MATCHED", Snackbar.LENGTH_LONG);
+                View snackView = snackbar2.getView();
+                TextView textView = snackView.findViewById(android.support.design.R.id.snackbar_text);
+                textView.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.snackTextPin));
                 snackbar2.show();
 
             }
         } else {
 
             Snackbar snackbar3 = Snackbar.make(findViewById(R.id.setpinLayout), "PIN MUST CONTAIN FOUR DIGITS ONLY", Snackbar.LENGTH_LONG);
+            View snackView = snackbar3.getView();
+            TextView textView = snackView.findViewById(android.support.design.R.id.snackbar_text);
+            textView.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.snackTextPin));
             snackbar3.show();
 
         }

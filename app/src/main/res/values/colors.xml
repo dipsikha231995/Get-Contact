@@ -4,5 +4,7 @@
     <color name="colorPrimaryDark">#4B0082</color>
     <color name="colorAccent">#FF4081</color>
     <color name="snackTextSuccess">#00e600</color>
-    <color name="snackTextFail">#cf0a10</color>
+    <color name="snackTextFail">#e7385d</color>
+    <color name="snackTextPin">#e6c617</color>
+
 </resources>

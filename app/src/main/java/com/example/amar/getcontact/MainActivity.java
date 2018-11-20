@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
         {
             textempty.setText("No log available!");
             image_empty.setImageResource(R.drawable.contact);
-
         }
 
         else if (logs != null) {
@@ -113,15 +112,10 @@ public class MainActivity extends AppCompatActivity {
 
             //Log.d("my_data", myLogs.toString());
 
-
             logAdapter = new LogAdapter(myLogs, getApplicationContext(), (CoordinatorLayout)findViewById(R.id.coordinator_layout));
             rv.setAdapter(logAdapter);
             rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         }
-
-
-
-
 
         //
         userSetPin = savedPrefs.getString(SetPinActivity.PIN_KEY, "");
@@ -150,8 +144,6 @@ public class MainActivity extends AppCompatActivity {
             snackbar.show();
         }
     }
-
-
 
 
     @Override
@@ -184,7 +176,6 @@ public class MainActivity extends AppCompatActivity {
 
                             if (op.getText().toString().equals(userSetPin)) {
 
-
                                 if (np.getText().toString().equals(cp.getText().toString())) {
 
                                     SharedPreferences.Editor editor = SetPinActivity.pinPreference.edit();
@@ -203,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
                                     Toast toast = Toast.makeText(MainActivity.this,"PIN DID NOT MATCHED!",Toast.LENGTH_LONG);
                                     View view = toast.getView();
                                     TextView text = view.findViewById(android.R.id.message);
-                                    text.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
+                                    text.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.snackTextPin));
                                     toast.show();
                                 }
                             } else {

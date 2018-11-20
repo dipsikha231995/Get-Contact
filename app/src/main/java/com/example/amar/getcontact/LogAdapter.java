@@ -79,8 +79,7 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder> {
 
                     final String data = log_list.get(mPosition).toString();
 
-
-                    Snackbar snackbar = Snackbar.make(coordinatorLayout, data, Snackbar.LENGTH_INDEFINITE)
+                    Snackbar snackbar = Snackbar.make(coordinatorLayout, "Clear log history?" , Snackbar.LENGTH_INDEFINITE)
                             .setAction("Yes", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -101,6 +100,8 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder> {
 
                                     //writing to shared preference file
                                     MainActivity.saveLogs();
+
+                                    Toast.makeText(context, "Log cleared!", Toast.LENGTH_SHORT).show();
                                 }
                             });
 

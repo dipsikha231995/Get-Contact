@@ -6,5 +6,7 @@
     <color name="snackTextSuccess">#00e600</color>
     <color name="snackTextFail">#e7385d</color>
     <color name="snackTextPin">#e6c617</color>
+    <color name="textHint">#0e0c01</color>
+
 
 </resources>

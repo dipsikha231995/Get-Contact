@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
                                     SharedPreferences.Editor editor = SetPinActivity.pinPreference.edit();
                                     editor.putString(SetPinActivity.PIN_KEY, np.getText().toString());
                                     editor.apply();
-                                    //Toast.makeText(MainActivity.this, "PIN CHANGED!", Toast.LENGTH_SHORT).show();
+
                                     Toast toast = Toast.makeText(MainActivity.this,"PIN CHANGED!",Toast.LENGTH_LONG);
                                     View view = toast.getView();
                                     TextView text = view.findViewById(android.R.id.message);
@@ -190,7 +190,6 @@ public class MainActivity extends AppCompatActivity {
 
                                 } else {
 
-                                    //Toast.makeText(MainActivity.this, "PIN DID NOT MATCHED!", Toast.LENGTH_SHORT).show();
                                     Toast toast = Toast.makeText(MainActivity.this,"PIN DID NOT MATCHED!",Toast.LENGTH_LONG);
                                     View view = toast.getView();
                                     TextView text = view.findViewById(android.R.id.message);
@@ -199,7 +198,6 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             } else {
 
-                                //Toast.makeText(MainActivity.this, "PROVIDE A VALID OLD PIN!", Toast.LENGTH_SHORT).show();
                                 Toast toast = Toast.makeText(MainActivity.this,"PROVIDE A VALID OLD PIN!",Toast.LENGTH_LONG);
                                 View view = toast.getView();
                                 TextView text = view.findViewById(android.R.id.message);
@@ -208,7 +206,6 @@ public class MainActivity extends AppCompatActivity {
                             }
 
                         } else {
-                           // Toast.makeText(MainActivity.this, "PIN MUST CONTAIN FOUR DIGITS ONLY!", Toast.LENGTH_SHORT).show();
                             Toast toast = Toast.makeText(MainActivity.this,"PIN MUST CONTAIN FOUR DIGITS ONLY!",Toast.LENGTH_LONG);
                             View view = toast.getView();
                             TextView text = view.findViewById(android.R.id.message);
@@ -237,8 +234,9 @@ public class MainActivity extends AppCompatActivity {
 
                 change_pin.setView(v);
                 dialog = change_pin.create();
-                dialog.requestWindowFeature(Window.FEATURE_ACTION_BAR);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                ColorDrawable dialogColor = new ColorDrawable(Color.GRAY);
+                dialogColor.setAlpha(100);
+                dialog.getWindow().setBackgroundDrawable(dialogColor);
                 dialog.show();
                 break;
 

@@ -72,9 +72,7 @@ public class SMSReceiver extends BroadcastReceiver {
 
         if (intent.getAction().equalsIgnoreCase("android.provider.Telephony.SMS_RECEIVED")) {
 
-            Toast.makeText(context, "SMS received", Toast.LENGTH_SHORT).show();
-
-            //Toast.makeText(context,savedPin, Toast.LENGTH_SHORT).show();
+            Log.d("SMS","SMS Received");
 
             Bundle bundle = intent.getExtras();
 
@@ -175,20 +173,11 @@ public class SMSReceiver extends BroadcastReceiver {
                                     // replace all white spaces within the Phone number
                                     s2 = s2.replaceAll("\\s+", "");
 
-
-                                    // String s3 = cursor.getString(2);
-
-                               /* if (s3.indexOf("com.google") == 0) {
-
-                                }*/
-
-
                                     if (!c_phone.contains(s2)) {
                                         c_phone.add(s2);
 
                                         myString.append(s1 + " : " + s2 + "\n");
                                     }
-
 
                                 }
 

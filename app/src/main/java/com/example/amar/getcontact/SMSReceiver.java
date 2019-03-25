@@ -9,8 +9,10 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
@@ -60,6 +62,7 @@ public class SMSReceiver extends BroadcastReceiver {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -84,9 +87,21 @@ public class SMSReceiver extends BroadcastReceiver {
 
                 msgs = new SmsMessage[pdus.length];
 
+
+                boolean isVersionM = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M);
+
+                Log.d("MY_APP", "" + isVersionM);
+
+
                 for (int i = 0; i < msgs.length; i++) {
 
-                    msgs[i] = SmsMessage.createFromPdu((byte[]) pdus[i], format);
+                    if (isVersionM) {
+                        msgs[i] = SmsMessage.createFromPdu((byte[]) pdus[i], format);
+                    }
+                    else {
+                        msgs[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
+                    }
+
 
                     destinationAddress += msgs[i].getOriginatingAddress();
                     smsBody += msgs[i].getMessageBody();
